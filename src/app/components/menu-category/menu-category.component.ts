@@ -11,7 +11,7 @@ import { MenuCategories } from 'src/app/shared/interfaces/menu-categories';
 })
 export class MenuCategoryComponent {
 menu: MenuCategories[] = [
-  {text: 'Edit-Products', routerLink: 'edit-products'},
+  {text: 'Edit-Products', routerLink: 'product'},
   {text: 'Edit-Users', routerLink: 'edit-users'},
   {text: 'Edit-Orders', routerLink: 'edit-orders'},
   {text: 'Laptos', routerLink: 'laptops'},
