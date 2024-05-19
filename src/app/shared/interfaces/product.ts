@@ -1,5 +1,5 @@
 export interface Product {
-    id: Number;
-    product_name: String;
-    short_desc: String;
+    id: number;
+    productName: string;
+    shortDesc: string;
 }
