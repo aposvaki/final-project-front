@@ -27,13 +27,12 @@ export class CrudUpdateComponent {
   searchForm: FormGroup;
   updateForm: FormGroup;
   products: Product[] = [];
-  selectedProduct: Product | null = null;
   productForms: { [key: string]: FormGroup } = {};
 
   productService = inject(ProductService);
   fb = inject(FormBuilder);
 
-  productWithId: any;
+  product: any;
 
   ngOnInit() {
     this.searchForm = this.fb.group({
@@ -71,11 +70,15 @@ export class CrudUpdateComponent {
     this.productService.getProductById(productId).subscribe({
       next: (respose) => {
         console.log('product found');
-        this.productWithId = respose;
-
+        this.product = respose;
+        this.updateForm.patchValue({
+          productName: this.product.productName,
+          shortDesc: this.product.shortDesc
+        })
       },
       error: () => {
-        console.log("Can't find that product")
+        console.log("Can't find that product");
+        this.product = null;
       }
     })
   }
@@ -87,7 +90,7 @@ export class CrudUpdateComponent {
     }
 
     const updatedProduct: Product = {
-      ...this.selectedProduct,
+      ...this.product,
       ...this.updateForm.value
     };
 
@@ -96,7 +99,7 @@ export class CrudUpdateComponent {
         alert(`product with id: ${updatedProduct.id} updated succesfully`);
         console.log(`product with id: ${updatedProduct.id} updated succesfully`)
         this.refreshProducts();
-        this.selectedProduct = null;  // Hide the update form
+        this.product = null;  // Hide the update form
       },
       error: () => {
         console.error('Failed to update product');
